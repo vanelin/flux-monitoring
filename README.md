@@ -36,8 +36,22 @@ flux create kustomization monitoring-config \
   --health-check-timeout=1m \
   --wait
 
+# Install opentelemetry-operator
+flux create kustomization open-telemetry \
+  --interval=1h \
+  --prune=true \
+  --source=flux-monitoring \
+  --path="./monitoring/open-telemetry" \
+  --health-check-timeout=1m \
+  --wait
+
 # You can access Grafana using port forwarding:
 
 kubectl -n monitoring port-forward svc/kube-prometheus-stack-grafana 3000:80
+
+kubectl --namespace monitoring port-forward --address 0.0.0.0  svc/kube-prometheus-stack-grafana 3000:80
+
+# Get password Grafana
+kubectl get secret --namespace monitoring kube-prometheus-stack-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
 ```
