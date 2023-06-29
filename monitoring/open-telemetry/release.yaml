@@ -5,8 +5,8 @@ metadata:
   namespace: opentelemetry
 spec:
   interval: 5m
-  dependsOn:
-    - name: cert-manager
+  # dependsOn:
+  #   - name: cert-manager
   chart:
     spec:
       chart: opentelemetry-operator
