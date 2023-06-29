@@ -4,5 +4,4 @@ metadata:
   name: open-telemetry
 spec:
   interval: 10m
-  type: default
   url: https://open-telemetry.github.io/opentelemetry-helm-charts
