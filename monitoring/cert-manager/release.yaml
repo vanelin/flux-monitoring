@@ -17,9 +17,10 @@ spec:
         namespace: flux-system
       interval: 12h
   install:
-    createNamespace: true
-    remediation:
-      retries: 3
+    crds: Create
   upgrade:
-    remediation:
-      retries: 3
+    crds: CreateReplace
+  values:
+    installCRDs: false
+    webhook:
+      enabled: false
