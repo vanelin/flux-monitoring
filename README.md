@@ -43,6 +43,7 @@ flux create kustomization monitoring-config \
 # To install the opentelemetry-operator in an existing cluster, make sure you have cert-manager installed and run
 flux create kustomization cert-manager \
   --interval=1h \
+  --retry-interval=1m \
   --prune=true \
   --source=flux-monitoring \
   --path="./monitoring/cert-manager" \
