@@ -43,6 +43,7 @@ flux create kustomization open-telemetry \
   --source=flux-monitoring \
   --path="./monitoring/open-telemetry" \
   --health-check-timeout=1m \
+  --log-level=debug \
   --wait
 
 # You can access Grafana using port forwarding:
