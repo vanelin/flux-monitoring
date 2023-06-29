@@ -4,15 +4,12 @@ metadata:
   name: otel-collector
   namespace: opentelemetry
 spec:
-  mode: deployment
   config: |
     receivers:
       otlp:
         protocols:
           grpc:
-            endpoint: "0.0.0.0:4317"
           http:
-            endpoint: "0.0.0.0:55681"
     processors:
       memory_limiter:
         check_interval: 1s
@@ -21,13 +18,13 @@ spec:
       batch:
         send_batch_size: 10000
         timeout: 10s
+
     exporters:
       logging:
-      prometheus:
-        endpoint: "0.0.0.0:8889"
+
     service:
       pipelines:
         traces:
           receivers: [otlp]
           processors: []
-          exporters: [logging, prometheus]
+          exporters: [logging]
