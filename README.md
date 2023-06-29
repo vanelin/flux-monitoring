@@ -1,5 +1,9 @@
 # flux-monitoring
 
+# Source
+- [Flux monitoring with Prometheus](https://fluxcd.io/flux/guides/monitoring/)
+- [OpenTelemetry Operator for Kubernetes](https://github.com/open-telemetry/opentelemetry-operator)
+
 ```bash
 # First register the Git repository on your cluster:
 flux create source git flux-monitoring \
@@ -36,6 +40,15 @@ flux create kustomization monitoring-config \
   --health-check-timeout=1m \
   --wait
 
+# To install the opentelemetry-operator in an existing cluster, make sure you have cert-manager installed and run
+flux create kustomization cert-manager \
+  --interval=1h \
+  --prune=true \
+  --source=flux-monitoring \
+  --path="./monitoring/cert-manager" \
+  --health-check-timeout=1m \
+  --wait
+
 # Install opentelemetry-operator
 flux create kustomization open-telemetry \
   --interval=1h \
@@ -43,7 +56,6 @@ flux create kustomization open-telemetry \
   --source=flux-monitoring \
   --path="./monitoring/open-telemetry" \
   --health-check-timeout=1m \
-  --log-level=debug \
   --wait
 
 # You can access Grafana using port forwarding:
