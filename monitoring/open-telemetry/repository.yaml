@@ -1,7 +1,11 @@
+---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: open-telemetry
+  namespace: flux-system
 spec:
-  interval: 10m
+  interval: 10m0s
+  provider: generic
+  timeout: 1m0s
   url: https://open-telemetry.github.io/opentelemetry-helm-charts

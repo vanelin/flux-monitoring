@@ -41,6 +41,11 @@ flux create kustomization monitoring-config \
   --wait
 
 # To install the opentelemetry-operator in an existing cluster, make sure you have cert-manager installed and run
+flux create source helm jetstack \
+  --url=https://charts.jetstack.io \
+  --interval=10m \
+  --namespace=flux-system
+
 flux create kustomization cert-manager \
   --interval=1h \
   --retry-interval=1m \
@@ -51,6 +56,11 @@ flux create kustomization cert-manager \
   --wait
 
 # Install opentelemetry-operator
+flux create source helm open-telemetry \
+  --url=https://open-telemetry.github.io/opentelemetry-helm-charts \
+  --interval=10m \
+  --namespace=flux-system
+
 flux create kustomization open-telemetry \
   --interval=1h \
   --prune=true \
