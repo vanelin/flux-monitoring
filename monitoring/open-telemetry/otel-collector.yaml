@@ -1,7 +1,7 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
 metadata:
-  name: otel-collector
+  name: otel
   namespace: opentelemetry
 spec:
   config: |
@@ -9,7 +9,7 @@ spec:
       otlp:
         protocols:
           grpc:
-          http:
+            endpoint: "0.0.0.0:4317"
     processors:
       memory_limiter:
         check_interval: 1s
@@ -21,10 +21,19 @@ spec:
 
     exporters:
       logging:
-
+      prometheus:
+        endpoint: "0.0.0.0:8889"
     service:
       pipelines:
+        logs:
+          receivers: [otlp]
+          processors: []
+          exporters: [logging]
         traces:
           receivers: [otlp]
           processors: []
           exporters: [logging]
+        metrics:
+          receivers: [otlp]
+          processors: []
+          exporters: [logging, prometheus]
