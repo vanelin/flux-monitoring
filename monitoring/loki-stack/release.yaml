@@ -24,6 +24,8 @@ spec:
           enabled: true
           maxLines: 1000
     promtail:
+      enabled: false
+    fluent-bit:
       enabled: true
     loki:
       enabled: true
